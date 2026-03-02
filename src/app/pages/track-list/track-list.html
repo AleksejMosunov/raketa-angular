@@ -1,0 +1,13 @@
+<ul>
+  <li *ngFor="let track of tracks()">
+    {{ track.name }} - {{ track.httpPort }}
+    <button (click)="deleteTrack(track._id)">Удалить</button>
+  </li>
+</ul>
+
+<h3>Добавить трек</h3>
+<input [(ngModel)]="newTrackName" placeholder="Название" />
+<input [(ngModel)]="newTrackHttpPort" type="number" placeholder="HTTP порт" />
+<input [(ngModel)]="newTrackWsUrl" placeholder="WS URL" />
+<input [(ngModel)]="newTrackOfficialTiming" placeholder="Официальное время" />
+<button (click)="addTrack()">Добавить</button>

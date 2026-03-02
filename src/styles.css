@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #693e9f;
+  color: #fff
+}
+
+a {
+  color: #000000; /* или любой другой цвет для неактивных ссылок */
+  text-decoration: none;
+}
