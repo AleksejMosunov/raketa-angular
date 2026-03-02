@@ -6,4 +6,5 @@ export interface Track {
   wsUrl: string;
   officialTiming: string;
   createdAt: Date;
+  imgUrl: string;
 }

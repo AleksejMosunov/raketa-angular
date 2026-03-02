@@ -1,0 +1,17 @@
+<div>
+  <!-- <h2 class="track-list-h2">Track List</h2> -->
+  <div class=" tracks-container">
+    <mat-card *ngFor="let track of tracks()" class="track-card">
+      <mat-card-header style="text-align: center;">
+        <mat-card-title class="track-name">{{ track.name }}</mat-card-title>
+      </mat-card-header>
+      <img class="track-image" mat-card-image [src]="track.imgUrl" alt="{{ track.name }}">
+      <mat-card-content class="track-card-content">
+        <a matButton="outlined" [routerLink]="['/track', track.id]">
+          Race
+        </a>
+        <a matButton="outlined" href="{{ track.officialTiming }}" target="_blank">Timing</a>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

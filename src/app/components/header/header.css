@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  background-color: #693e9f;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 .header-navigation {
@@ -22,36 +24,18 @@ a.router-link-active {
 a {
   color: #000000; /* или любой другой цвет для неактивных ссылок */
   text-decoration: none;
+  user-select: none;
+  font-size: 16px;
 }
+
 
 .clickable-title {
   text-align: center;
-  padding: 1rem;
   cursor: pointer;
   font-weight: 700;
   font-size: 2.2rem;
   letter-spacing: 1px;
+  user-select: none;
+  color: #ffffff;
 }
 
-/* Анимированный градиент */
-.animated-gradient {
-  background: linear-gradient(
-    90deg,
-    #00ff6a,
-    #00b52a,
-    #00e676,
-    #00ff6a
-  );
-  background-size: 300% 300%;
-  animation: gradientMove 6s ease infinite;
-
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}

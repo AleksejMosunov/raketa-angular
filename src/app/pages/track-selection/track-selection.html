@@ -1,9 +1,0 @@
-<div>
-  <select [(ngModel)]="selectedTrackId" (change)="onTrackChange()">
-    <option *ngFor="let track of tracks | async" [value]="track._id">
-      {{ track.name }}
-    </option>
-  </select>
-
-  <button (click)="startRace()">Start Race</button>
-</div>

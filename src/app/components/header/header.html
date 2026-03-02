@@ -1,9 +1,7 @@
 <div class="header-container">
-  <h1 [routerLink]="['/track-selection']" class="clickable-title animated-gradient">Apex Raketa</h1>
+  <h1 [routerLink]="['/']" class="clickable-title animated-gradient">Apex Raketa</h1>
   <nav class="header-navigation">
-    <a routerLink="/track-selection">Track Selection</a>
-    <a routerLink="/active-races">Active Races</a>
-    <a routerLink="/track-list">Track List</a>
+    <!-- <a routerLink="/tracks">Track List</a> -->
     <a routerLink="/login" *ngIf="!auth.isLoggedIn">Login</a>
     <a style="cursor: pointer;" (click)="onLogout()" *ngIf="auth.isLoggedIn">Logout</a>
   </nav>

@@ -1,0 +1,51 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.tracks-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  padding: 1rem 5rem;
+}
+
+.track-card{
+ max-width: 3000px;
+  color: black;
+  padding: 1rem;
+}
+
+.track-card-content {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.track-list-h2{
+  text-align: center;
+  color: black;
+}
+
+.track-image {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  margin: 5px 0 5px 0;
+  border-radius: 5px;
+}
+
+.track-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mat-mdc-card-header {
+  display: block;
+}
