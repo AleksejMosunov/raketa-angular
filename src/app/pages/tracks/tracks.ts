@@ -45,24 +45,39 @@ export class Tracks {
       .subscribe((tracks) => this.tracks.set(tracks));
   }
 
-  openDialog(): void {
-    this.dialog
-      .open(Dialog)
-      .afterClosed()
-      .subscribe((result) => {
-        if (result) {
-          this.tracksService.createTrack(result).subscribe({
-            next: (createdTrack) => {
-              // добавить новый трек в сигнал
-              this.tracks.set([...this.tracks(), createdTrack]);
-            },
-          });
-        }
-      });
+  openDialog(track?: Track): void {
+    const dialogRef = this.dialog.open(Dialog, {
+      data: track ? { ...track } : null, // передаем данные трека, если редактируем
+    });
+
+    dialogRef.afterClosed().subscribe((result: Partial<Track> | undefined) => {
+      if (!result) return; // если закрыли без изменений
+
+      if (track) {
+        // Если track существует — обновляем
+        this.tracksService.updateTrack(track.id, result).subscribe({
+          next: (updatedTrack) => {
+            // обновляем сигнал
+            this.tracks.set(
+              this.tracks().map((t) => (t.id === updatedTrack.id ? updatedTrack : t)),
+            );
+          },
+          error: (err) => console.error('Failed to update track', err),
+        });
+      } else {
+        // Если track нет — создаем новый
+        this.tracksService.createTrack(result).subscribe({
+          next: (createdTrack) => {
+            this.tracks.set([...this.tracks(), createdTrack]);
+          },
+          error: (err) => console.error('Failed to create track', err),
+        });
+      }
+    });
   }
 
   deleteTrack(track: Track) {
-    console.log('delete track');
+    console.log('Delete track');
     this.tracksService.deleteTrack(track.id).subscribe({
       next: () => {
         this.tracks.set(this.tracks().filter((t) => t.id !== track.id));
@@ -71,4 +86,15 @@ export class Tracks {
       error: (err) => console.error('Delete failed', err),
     });
   }
+
+  // editTrack(track: Track) {
+  //   console.log('Update Track');
+  //   this.tracksService.updateTrack(track.id, track).subscribe({
+  //     next: (updatedTrack) => {
+  //       // обновляем сигнал tracks
+  //       this.tracks.set(this.tracks().map((t) => (t.id === track.id ? updatedTrack : t)));
+  //     },
+  //     error: (err) => console.error('Failed to update track', err),
+  //   });
+  // }
 }

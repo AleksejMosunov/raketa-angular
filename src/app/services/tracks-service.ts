@@ -19,7 +19,7 @@ export class TracksService {
   }
 
   updateTrack(id: string, track: Partial<Track>) {
-    return this.http.put<Track>(`${this.url}/${id}`, track);
+    return this.http.put<Track>(this.url, track);
   }
 
   deleteTrack(id: string) {

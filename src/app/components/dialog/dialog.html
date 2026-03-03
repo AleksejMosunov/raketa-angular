@@ -1,16 +1,42 @@
-<h2 mat-dialog-title>Пример диалога</h2>
+<h2 class="dialog-container" mat-dialog-title>{{ track?.id ? 'Edit Track' : 'Add Track' }}</h2>
+
 <mat-dialog-content>
   <form class="track-add-form">
-    <input class="track-add-input" placeholder="Track Name" [(ngModel)]="track.name" name="name" />
-    <input class="track-add-input" placeholder="ID" [(ngModel)]="track.id" name="id" />
-    <input class="track-add-input" placeholder="HTTP Port" [(ngModel)]="track.httpPort" name="httpPort" />
-    <input class="track-add-input" placeholder="WS URL" [(ngModel)]="track.wsUrl" name="wsUrl" />
-    <input class="track-add-input" placeholder="Official Timing" [(ngModel)]="track.officialTiming"
-      name="officialTiming" />
-    <input class="track-add-input" placeholder="IMG URL" [(ngModel)]="track.imgUrl" name="imgUrl" />
+    <mat-form-field appearance="fill" class="track-add-input">
+      <mat-label>Track Name</mat-label>
+      <input matInput [(ngModel)]="track.name" name="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="track-add-input">
+      <mat-label>ID</mat-label>
+      <input matInput [(ngModel)]="track.id" name="id" [readonly]="isEdit" placeholder="Enter Track ID" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="track-add-input">
+      <mat-label>HTTP Port</mat-label>
+      <input matInput type="number" [(ngModel)]="track.httpPort" name="httpPort" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="track-add-input">
+      <mat-label>WS URL</mat-label>
+      <input matInput [(ngModel)]="track.wsUrl" name="wsUrl" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="track-add-input">
+      <mat-label>Official Timing URL</mat-label>
+      <input matInput [(ngModel)]="track.officialTiming" name="officialTiming" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="track-add-input">
+      <mat-label>Image URL</mat-label>
+      <input matInput [(ngModel)]="track.imgUrl" name="imgUrl" />
+    </mat-form-field>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
-  <button mat-button (click)="addTrack(track)">Add</button>
+  <button mat-button color="primary" (click)="saveTrack()">
+    {{ track?.id ? 'Save' : 'Add' }} <!-- меняется текст кнопки -->
+  </button>
   <button mat-button (click)="closeDialog()">Close</button>
 </mat-dialog-actions>

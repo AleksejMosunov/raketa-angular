@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Track } from '../../models/track.model';
-import { TracksService } from '../../services/tracks-service';
-import { isDate } from 'util/types';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-dialog',
@@ -15,28 +13,35 @@ import { isDate } from 'util/types';
   styleUrl: './dialog.css',
 })
 export class Dialog {
-  track: Track = {
-    _id: '',
-    id: '',
-    name: '',
-    httpPort: 0,
-    wsUrl: '',
-    officialTiming: '',
-    imgUrl: '',
-    openedWs: false,
-    createdAt: new Date(),
-  };
+  track: Track;
+  isEdit: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<Dialog>,
-    public trackService: TracksService,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: Track | null,
+  ) {
+    this.track = data
+      ? { ...data }
+      : {
+          _id: '',
+          id: '',
+          name: '',
+          httpPort: 0,
+          wsUrl: '',
+          officialTiming: '',
+          imgUrl: '',
+          openedWs: false,
+          createdAt: new Date(),
+        };
+    this.isEdit = !!data; // true если редактируем
+  }
 
   closeDialog() {
     this.dialogRef.close();
   }
 
-  addTrack(track: Track) {
-    this.dialogRef.close(track);
+  saveTrack() {
+    // возвращаем трек наружу
+    this.dialogRef.close(this.track);
   }
 }

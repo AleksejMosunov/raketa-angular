@@ -1,0 +1,13 @@
+.track-add-form{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.dialog-container{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+

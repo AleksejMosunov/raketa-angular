@@ -7,7 +7,7 @@
           <mat-card-title class="track-name">{{ track.name }}</mat-card-title>
         </mat-card-header>
         <div class="track-container-btn">
-          <button matMiniFab>
+          <button (click)="openDialog(track)" matMiniFab>
             <mat-icon>edit</mat-icon>
           </button>
           <button (click)="deleteTrack(track)" matMiniFab>
