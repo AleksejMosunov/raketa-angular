@@ -1,17 +1,40 @@
-<div>
+<div class="track-div">
   <!-- <h2 class="track-list-h2">Track List</h2> -->
   <div class=" tracks-container">
     <mat-card *ngFor="let track of tracks()" class="track-card">
-      <mat-card-header style="text-align: center;">
-        <mat-card-title class="track-name">{{ track.name }}</mat-card-title>
-      </mat-card-header>
-      <img class="track-image" mat-card-image [src]="track.imgUrl" alt="{{ track.name }}">
+      <div class="track-delete-btn">
+        <mat-card-header style="text-align: center;">
+          <mat-card-title class="track-name">{{ track.name }}</mat-card-title>
+        </mat-card-header>
+        <div class="track-container-btn">
+          <button matMiniFab>
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="deleteTrack(track)" matMiniFab>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+      </div>
+      <div class="track-image-container">
+        <img class="track-image" mat-card-image [src]="track.imgUrl" alt="{{ track.name }}">
+      </div>
       <mat-card-content class="track-card-content">
-        <a matButton="outlined" [routerLink]="['/track', track.id]">
+        <a (click)="startRace(track)" matButton="outlined" [routerLink]="['/track', track.id]">
           Race
         </a>
+
         <a matButton="outlined" href="{{ track.officialTiming }}" target="_blank">Timing</a>
       </mat-card-content>
+      <div class="track-stop-div">
+        <a (click)="stopRace(track)" matButton="outlined" *ngIf="track.openedWs">
+          Stop Race
+        </a>
+
+      </div>
     </mat-card>
   </div>
+  <button (click)="openDialog()" matFab aria-label="">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

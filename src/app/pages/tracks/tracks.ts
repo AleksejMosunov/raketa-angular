@@ -4,12 +4,15 @@ import { TracksService } from '../../services/tracks-service';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { Dialog } from '../../components/dialog/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tracks',
-  imports: [MatCardModule, MatButtonModule, CommonModule, RouterModule],
+  imports: [MatCardModule, MatButtonModule, CommonModule, RouterModule, MatIconModule],
   templateUrl: './tracks.html',
   styleUrl: './tracks.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,5 +20,55 @@ import { RouterModule } from '@angular/router';
 export class Tracks {
   private tracksService = inject(TracksService);
 
-  tracks = toSignal(this.tracksService.getTracks(), { initialValue: [] });
+  tracks = signal<Track[]>([]);
+  activeTracks = signal<Track | null>(null);
+  constructor(private dialog: MatDialog) {
+    // Инициализация данных
+    this.tracksService.getTracks().subscribe((tracks) => this.tracks.set(tracks));
+    this.tracksService
+      .getActiveTrack()
+      .subscribe((activeTracks) => this.activeTracks.set(activeTracks));
+    console.log(this.tracks());
+  }
+
+  startRace(track: Track) {
+    this.tracksService
+      .startTrackRace(track.id)
+      .pipe(switchMap(() => this.tracksService.getTracks()))
+      .subscribe((tracks) => this.tracks.set(tracks));
+  }
+
+  stopRace(track: Track) {
+    this.tracksService
+      .stopTrackRace(track.id)
+      .pipe(switchMap(() => this.tracksService.getTracks()))
+      .subscribe((tracks) => this.tracks.set(tracks));
+  }
+
+  openDialog(): void {
+    this.dialog
+      .open(Dialog)
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.tracksService.createTrack(result).subscribe({
+            next: (createdTrack) => {
+              // добавить новый трек в сигнал
+              this.tracks.set([...this.tracks(), createdTrack]);
+            },
+          });
+        }
+      });
+  }
+
+  deleteTrack(track: Track) {
+    console.log('delete track');
+    this.tracksService.deleteTrack(track.id).subscribe({
+      next: () => {
+        this.tracks.set(this.tracks().filter((t) => t.id !== track.id));
+        console.log(`Track ${track.name} deleted`);
+      },
+      error: (err) => console.error('Delete failed', err),
+    });
+  }
 }

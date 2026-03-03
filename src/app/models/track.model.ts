@@ -7,4 +7,5 @@ export interface Track {
   officialTiming: string;
   createdAt: Date;
   imgUrl: string;
+  openedWs: Boolean;
 }

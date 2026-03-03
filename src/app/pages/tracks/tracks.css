@@ -38,7 +38,6 @@
   height: 200px;
   object-fit: cover;
   margin: 5px 0 5px 0;
-  border-radius: 5px;
 }
 
 .track-name {
@@ -48,4 +47,32 @@
 
 .mat-mdc-card-header {
   display: block;
+}
+
+.track-image-container {
+  display: flex;
+  border-radius: 30px;
+  justify-content: center;
+}
+
+.track-stop-div{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.track-div {
+  display: flex;
+  align-items: center;
+}
+
+.track-delete-btn{
+display: flex;
+justify-content: space-between;
+}
+
+.track-container-btn{
+  display: flex;
+  align-items: center;
+  gap: 1rem
 }

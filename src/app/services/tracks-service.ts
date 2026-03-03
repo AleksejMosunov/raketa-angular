@@ -18,11 +18,11 @@ export class TracksService {
     return this.http.post<Track>(this.url, track);
   }
 
-  updateTrack(id: number, track: Partial<Track>) {
+  updateTrack(id: string, track: Partial<Track>) {
     return this.http.put<Track>(`${this.url}/${id}`, track);
   }
 
-  deleteTrack(id: number) {
+  deleteTrack(id: string) {
     return this.http.delete(`${this.url}/${id}`);
   }
 
@@ -32,5 +32,9 @@ export class TracksService {
 
   stopTrackRace(id: string) {
     return this.http.post(`${this.url}/${id}/stop`, {});
+  }
+
+  getActiveTrack() {
+    return this.http.get<Track>(`${this.url}/active`);
   }
 }

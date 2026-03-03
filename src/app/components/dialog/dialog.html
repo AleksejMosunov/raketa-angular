@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Пример диалога</h2>
+<mat-dialog-content>
+  <form class="track-add-form">
+    <input class="track-add-input" placeholder="Track Name" [(ngModel)]="track.name" name="name" />
+    <input class="track-add-input" placeholder="ID" [(ngModel)]="track.id" name="id" />
+    <input class="track-add-input" placeholder="HTTP Port" [(ngModel)]="track.httpPort" name="httpPort" />
+    <input class="track-add-input" placeholder="WS URL" [(ngModel)]="track.wsUrl" name="wsUrl" />
+    <input class="track-add-input" placeholder="Official Timing" [(ngModel)]="track.officialTiming"
+      name="officialTiming" />
+    <input class="track-add-input" placeholder="IMG URL" [(ngModel)]="track.imgUrl" name="imgUrl" />
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="addTrack(track)">Add</button>
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>
